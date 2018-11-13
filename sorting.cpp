@@ -26,7 +26,7 @@ int main()
     }
 
     cout << "Vector after heap sort: ";
-    heapsort(&test_ints);
+    heapsort<int>(test_ints);
 
     cout << "Vector before merge sort: ";
     //mergeSort(&test_ints);
@@ -35,7 +35,7 @@ int main()
     cout << "Vector after merge sort: ";
 
     cout << "Vector before quick sort: ";
-    quicksort(&test_ints);
+    //quicksort(&test_ints);
 
     cout << "Vector after quick sort: ";
 
