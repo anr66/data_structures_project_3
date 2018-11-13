@@ -19,11 +19,11 @@ void mergeSort( vector<Comparable> & a )
  */
 
 template <typename Comparable>
-void mergeSort( vector<Comparable> & a vector<Comparable> & tmpArray, int left, int right )
+void mergeSort( vector<Comparable> & a, vector<Comparable> & tmpArray, int left, int right )
 {
     if( left < right )
     {
-        in center=(left+right)/2;
+        int center = (left + right) / 2;
         mergeSort( a, tmpArray, left, center );
         mergeSort( a, tmpArray, center + 1, right );
         merge( a, tmpArray, left, center + 1, right );

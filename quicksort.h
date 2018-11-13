@@ -4,7 +4,7 @@
 template <typename Comparable>
 void quicksort( vector<Comparable> & a )
 {
-    quicksort(a,0,a.size() - 1);
+    quicksort(a, 0, a.size() - 1);
 }
 
 /**
@@ -14,7 +14,7 @@ void quicksort( vector<Comparable> & a )
 template <typename Comparable>
 const Comparable & median3( vector<Comparable> & a, int left, int right)
 {
-    int center - ( left + right ) / 2;
+    int center = ( left + right ) / 2;
     
     if( a[center] < a[left] )
         std::swap( a[left], a[center] );
