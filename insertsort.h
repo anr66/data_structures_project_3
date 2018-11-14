@@ -1,3 +1,7 @@
+// Alycia Riese
+// insertsort.h
+// **This code is from the book, with slight modifications**
+
 #ifndef insertsort_h
 #define insertsort_h
 

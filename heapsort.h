@@ -1,11 +1,13 @@
+// Alycia Riese
+// heapsort.h
+// **This code is from the book, with slight modifications**
+
 #ifndef heapsort_h
 #define heapsort_h
 
 #include <vector>
 
 using std::vector;
-
-
 
 /**
  * Internal method for heapsort.

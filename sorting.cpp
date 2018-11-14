@@ -1,430 +1,185 @@
+// Alycia Riese
+// sorting.cpp
+
+// C++ includes
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <ctime>
+#include <limits>
 
+// My includes
 #include "heapsort.h"
 #include "insertsort.h"
 #include "mergesort.h"
 #include "quicksort.h"
-#include <ctime>
 
+// using statements
 using std::vector;
 using std::ifstream;
 using std::string;
 using std::cout;
 using std::cin;
 
+// function protoypes
 vector<int> get_input_data();
 void sorting_test();
-void random_test(int number);
-void increasing_test(int number);
-void decreasing_test(int number);
+void test(int i);
 
-int number_of_ints;
 
+// Main function
 int main()
 {
+    int number_of_ints;
+
     // Run the test on the small integer file
     sorting_test();
 
-    // Run the test on the random integers
-    random_test(number_of_ints);
+    // Get the number of integers the user wants to sort
+    cout << "Enter number of integers to sort\n";
+    cin >> number_of_ints;
 
-    // Run the test on the increasing integers
-    increasing_test(number_of_ints);
+    // Check to see if user entered and integer
+    while (!cin.good())
+    {
+        // Clear the buffer
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 
-    // Run the test on the decreasing integers
-    decreasing_test(number_of_ints);    	
+        // Try again
+        cout << "Error: Input is invalid, try again\n";
+        cin >> number_of_ints;    
+    } 
+
+    // Run the tests on the integers
+    test(number_of_ints);      	
 }
 
-void test(int type, int number_of_ints)
+
+// This function will run the 4 sorting methods on random data sets, increasing
+// data sets, and decreasing data sets
+void test(int number_of_ints)
 {
-	vector<int> test_vector;
-	
-	switch(type)
-	{
-		// Random
-		case 0:
-			for(int 1 = 0; i <= number_of_ints - 1; i++)
-			{
-				int random = rand() % 100;
-				test_vector.push_back();	
-			}
-		
-		// Increasing
-		case 1:
-		
-		// Decreasing
-		case 2:
-			
-	}
-}
+    // Declare initial vectors
+	vector<int> vector_random;
+    vector<int> vector_increasing;
+    vector<int> vector_decreasing;
 
-void random_test(int number)
-{
-    // Random integer vectors
-    vector<int> random_10k;
-    vector<int> random_100k;
-    vector<int> random_1m;
-
-    for(int i = 0; i <= 9999; i++)
+    // Random
+    for(int i = 0; i <= number_of_ints - 1; i++)
     {
         int random = rand() % 100;
-        random_10k.push_back(random);
+        vector_random.push_back(i);	
     }
 
-    for(int i = 0; i <= 99999; i++)
+    // Increasing
+    for(int i = 0; i <= number_of_ints - 1; i++)
     {
-        int random = rand() % 100;
-        random_100k.push_back(random);
+        vector_increasing.push_back(i);
     }
 
-    for(int i = 0; i <= 999999; i++)
+    // Decreasing
+    for(int i = number_of_ints - 1; i >= 0; i--)
     {
-        int random = rand() % 100;
-        random_1m.push_back(random);
+        vector_decreasing.push_back(i);
     }
 
-    vector<int> heap_10k = random_10k;
-    vector<int> insert_10k = random_10k;
-    vector<int> merge_10k = random_10k;
-    vector<int> quick_10k = random_10k;
-    
-    vector<int> heap_100k = random_100k;
-    vector<int> insert_100k = random_100k;
-    vector<int> merge_100k = random_100k;
-    vector<int> quick_100k = random_100k;
+    // Copy the vector created above to do the sorting
+    vector<int> vector_random_heap = vector_random;
+    vector<int> vector_random_merge = vector_random;
+    vector<int> vector_random_quick = vector_random;
+    vector<int> vector_random_insert = vector_random;
 
-    vector<int> heap_1m = random_1m;
-    vector<int> insert_1m = random_1m;
-    vector<int> merge_1m = random_1m;
-    vector<int> quick_1m = random_1m;
+    vector<int> vector_increasing_heap = vector_increasing;
+    vector<int> vector_increasing_merge = vector_increasing;
+    vector<int> vector_increasing_quick = vector_increasing;
+    vector<int> vector_increasing_insert = vector_increasing;
+
+    vector<int> vector_decreasing_heap = vector_decreasing;
+    vector<int> vector_decreasing_merge = vector_decreasing;
+    vector<int> vector_decreasing_quick = vector_decreasing;
+    vector<int> vector_decreasing_insert = vector_decreasing;
 
     clock_t start;
     clock_t stop;
 
-	if (number <= 10000)
-	{
-		// 10k sorts
-		start = clock();
-		heapsort<int>(heap_10k);
-		stop = clock();
-		cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+    cout << "For N = " << number_of_ints << ":\n";
 
-		start = clock();
-		mergeSort<int>(merge_10k);
-		stop = clock();
-		cout << "runtime merge 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+    start = clock();
+    heapsort<int>(vector_random_heap);
+    stop = clock();
+    cout << "runtime heap random: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-		start = clock();
-		quicksort<int>(quick_10k);
-		stop = clock();
-		cout << "runtime quick 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+    start = clock();
+    mergeSort<int>(vector_random_merge);
+    stop = clock();
+    cout << "runtime merge random: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-		start = clock();
-		insertionSort<int>(insert_10k);
-		stop = clock();
-		cout << "runtime insert 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
+    start = clock();
+    quicksort<int>(vector_random_quick);
+    stop = clock();
+    cout << "runtime quick random: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-////////////////////////////////////////////////////////////////////////////////////////
+    start = clock();
+    insertionSort<int>(vector_random_insert);
+    stop = clock();
+    cout << "runtime insert random: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-	if (number > 10000 && number <= 100000)
-	{
-		// 100k sorts
-		start = clock();
-		heapsort<int>(heap_100k);
-		stop = clock();
-		cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-		start = clock();
-		mergeSort<int>(merge_100k);
-		stop = clock();
-		cout << "runtime merge 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+    start = clock();
+    heapsort<int>(vector_increasing_heap);
+    stop = clock();
+    cout << "runtime heap increasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-		start = clock();
-		quicksort<int>(quick_100k);
-		stop = clock();
-		cout << "runtime quick 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+    start = clock();
+    mergeSort<int>(vector_increasing_merge);
+    stop = clock();
+    cout << "runtime merge increasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-		start = clock();
-		insertionSort<int>(insert_100k);
-		stop = clock();
-		cout << "runtime insert 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
+    start = clock();
+    quicksort<int>(vector_increasing_quick);
+    stop = clock();
+    cout << "runtime quick increasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-////////////////////////////////////////////////////////////////////////////////////////
+    start = clock();
+    insertionSort<int>(vector_increasing_insert);
+    stop = clock();
+    cout << "runtime insert increasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-	if (number > 100000 && number <= 1000000)
-	{
-		// 1m sorts
-		start = clock();
-		heapsort<int>(heap_1m);
-		stop = clock();
-		cout << "runtime heap 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-		start = clock();
-		mergeSort<int>(merge_1m);
-		stop = clock();
-		cout << "runtime merge 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_1m);
-		stop = clock();
-		cout << "runtime quick 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_1m);
-		stop = clock();
-		cout << "runtime insert 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
-}
-
-void increasing_test()
-{
-    // Increasing integer vectors
-    vector<int> increasing_10k;
-    vector<int> increasing_100k;
-    vector<int> increasing_1m;
-
-    for(int i = 0; i <= 9999; i++)
-    {
-        increasing_10k.push_back(i);
-    }
-
-    for(int i = 0; i <= 99999; i++)
-    {
-        increasing_100k.push_back(i);
-    }
-
-    for(int i = 0; i <= 999999; i++)
-    {
-        increasing_1m.push_back(i);
-    }
-
-    vector<int> heap_10k = increasing_10k;
-    vector<int> insert_10k = increasing_10k;
-    vector<int> merge_10k = increasing_10k;
-    vector<int> quick_10k = increasing_10k;
+    start = clock();
+    heapsort<int>(vector_decreasing_heap);
+    stop = clock();
+    cout << "runtime heap decreasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
     
-    vector<int> heap_100k = increasing_100k;
-    vector<int> insert_100k = increasing_100k;
-    vector<int> merge_100k = increasing_100k;
-    vector<int> quick_100k = increasing_100k;
+    start = clock();
+    mergeSort<int>(vector_decreasing_merge);
+    stop = clock();
+    cout << "runtime merge decreasing : " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-    vector<int> heap_1m = increasing_1m;
-    vector<int> insert_1m = increasing_1m;
-    vector<int> merge_1m = increasing_1m;
-    vector<int> quick_1m = increasing_1m;
+    start = clock();
+    quicksort<int>(vector_decreasing_quick);
+    stop = clock();
+    cout << "runtime quick decreasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
-    clock_t start;
-    clock_t stop;    
-
-    	if (number <= 10000)
-	{
-		// 10k sorts
-		start = clock();
-		heapsort<int>(heap_10k);
-		stop = clock();
-		cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		mergeSort<int>(merge_10k);
-		stop = clock();
-		cout << "runtime merge 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_10k);
-		stop = clock();
-		cout << "runtime quick 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_10k);
-		stop = clock();
-		cout << "runtime insert 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-	if (number > 10000 && number <= 100000)
-	{
-		// 100k sorts
-		start = clock();
-		heapsort<int>(heap_100k);
-		stop = clock();
-		cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		mergeSort<int>(merge_100k);
-		stop = clock();
-		cout << "runtime merge 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_100k);
-		stop = clock();
-		cout << "runtime quick 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_100k);
-		stop = clock();
-		cout << "runtime insert 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-	if (number > 100000 && number <= 1000000)
-	{
-		// 1m sorts
-		start = clock();
-		heapsort<int>(heap_1m);
-		stop = clock();
-		cout << "runtime heap 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		mergeSort<int>(merge_1m);
-		stop = clock();
-		cout << "runtime merge 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_1m);
-		stop = clock();
-		cout << "runtime quick 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_1m);
-		stop = clock();
-		cout << "runtime insert 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
-
-}
-
-void decreasing_test()
-{
-    // Decreasing integer vectors
-    vector<int> decreasing_10k;
-    vector<int> decreasing_100k;
-    vector<int> decreasing_1m;
-
-    for(int i = 9999; i >= 0; i--)
-    {
-        decreasing_10k.push_back(i);
-    }
-
-    for(int i = 99999; i >= 0; i--)
-    {
-        decreasing_100k.push_back(i);
-    }
-
-    for(int i = 999999; i >= 0; i--)
-    {
-        decreasing_1m.push_back(i);
-    }
-
-    vector<int> heap_10k = decreasing_10k;
-    vector<int> insert_10k = decreasing_10k;
-    vector<int> merge_10k = decreasing_10k;
-    vector<int> quick_10k = decreasing_10k;
-    
-    vector<int> heap_100k = decreasing_100k;
-    vector<int> insert_100k = decreasing_100k;
-    vector<int> merge_100k = decreasing_100k;
-    vector<int> quick_100k = decreasing_100k;
-
-    vector<int> heap_1m = decreasing_1m;
-    vector<int> insert_1m = decreasing_1m;
-    vector<int> merge_1m = decreasing_1m;
-    vector<int> quick_1m = decreasing_1m;
-
-    clock_t start;
-    clock_t stop;    
-
-    	if (number <= 10000)
-	{
-		// 10k sorts
-		start = clock();
-		heapsort<int>(heap_10k);
-		stop = clock();
-		cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		mergeSort<int>(merge_10k);
-		stop = clock();
-		cout << "runtime merge 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_10k);
-		stop = clock();
-		cout << "runtime quick 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_10k);
-		stop = clock();
-		cout << "runtime insert 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-	if (number > 10000 && number <= 100000)
-	{
-		// 100k sorts
-		start = clock();
-		heapsort<int>(heap_100k);
-		stop = clock();
-		cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		mergeSort<int>(merge_100k);
-		stop = clock();
-		cout << "runtime merge 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_100k);
-		stop = clock();
-		cout << "runtime quick 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_100k);
-		stop = clock();
-		cout << "runtime insert 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-	if (number > 100000 && number <= 1000000)
-	{
-		// 1m sorts
-		start = clock();
-		heapsort<int>(heap_1m);
-		stop = clock();
-		cout << "runtime heap 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		mergeSort<int>(merge_1m);
-		stop = clock();
-		cout << "runtime merge 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		quicksort<int>(quick_1m);
-		stop = clock();
-		cout << "runtime quick 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-
-		start = clock();
-		insertionSort<int>(insert_1m);
-		stop = clock();
-		cout << "runtime insert 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
-	}
+    start = clock();
+    insertionSort<int>(vector_decreasing_insert);
+    stop = clock();
+    cout << "runtime insert decreasing: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 }
 
 
-// This will sort the vector (given by user) using the 4 different methods 
+// This will sort the vector (given by user file) using the 4 different methods 
 void sorting_test()
 {
+    // Get the input vector from file
     vector<int> original = get_input_data();
+
+    // Copy the vector for each sort
 	vector<int> test_heap = original;
     vector<int> test_merge = original;
     vector<int> test_quick = original;
     vector<int> test_insert = original;
-
 
     cout << "Vector before heap sort: ";
     for(vector<int>::iterator iter = test_heap.begin(); iter != test_heap.end(); iter++)
@@ -485,11 +240,10 @@ void sorting_test()
         cout << *iter << " ";
     }
     cout << "\n";
-
-
 }
 
 
+// Gets the input file and forms it into a vector of ints
 vector<int> get_input_data()
 {
     ifstream input_file;
@@ -498,27 +252,27 @@ vector<int> get_input_data()
     cout << "Please enter a file name to process\n";
     cin >> file_name;
 
+    // Try to open the file
     input_file.open(file_name.c_str());
 
+    // Could not open, try again
     while (input_file.fail())
     {
         cout << "Error opening file, try again" << "\n";
         cin >> file_name;
         input_file.open(file_name.c_str());        
     }
-	
-	cout << "Enter number of integers\n"
-	cin >> number_of_ints;
 
     string line;
-
     vector<int> ints;
 
+    // Read file line by line
     while(getline(input_file, line))
     {
-        //cout << line << "/n";
+        // Convert the line to an int and push it to vector
         ints.push_back(stoi(line));
     }
 
+    // Return our vector
     return ints;
 }

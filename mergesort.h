@@ -1,3 +1,7 @@
+// Alycia Riese
+// mergesort.h
+// **This code is from the book, with slight modifications**
+
 #ifndef mergesort_h
 #define mergesort_h
 

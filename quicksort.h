@@ -1,3 +1,7 @@
+// Alycia Riese
+// quicksort.h
+// **This code is from the book, with slight modifications**
+
 #ifndef quicksort_h
 #define quicksort_h
 
