@@ -25,56 +25,14 @@ int main()
     // Run the test on the small integer file
     //sorting_test();
 
-    random_test();
+    // Run the test on the random integers
+    //random_test();
 
-    
+    // Run the test on the increasing integers
+    increasing_test();
 
-    // Increasing integer vectors
-    vector<int> increasing_10k;
-    vector<int> increasing_100k;
-    vector<int> increasing_1m;
-
-    for(int i = 0; i <= 9999; i++)
-    {
-        increasing_10k.push_back(i);
-    }
-
-    for(int i = 0; i <= 99999; i++)
-    {
-        increasing_100k.push_back(i);
-    }
-
-    for(int i = 0; i <= 999999; i++)
-    {
-        increasing_1m.push_back(i);
-    }
-
-    // Decreasing integer vectors
-    vector<int> decreasing_10k;
-    vector<int> decreasing_100k;
-    vector<int> decreasing_1m;
-
-    for(int i = 9999; i >= 0; i--)
-    {
-        decreasing_10k.push_back(i);
-    }
-
-    for(int i = 99999; i >= 0; i--)
-    {
-        decreasing_100k.push_back(i);
-    }
-
-    for(int i = 999999; i >= 0; i--)
-    {
-        decreasing_1m.push_back(i);
-    }
-
-
-    clock_t start, stop;
-    start = clock ();
-
-
-    	
+    // Run the test on the decreasing integers
+    decreasing_test();    	
 }
 
 void random_test()
@@ -190,11 +148,219 @@ void random_test()
 
 void increasing_test()
 {
+    // Increasing integer vectors
+    vector<int> increasing_10k;
+    vector<int> increasing_100k;
+    vector<int> increasing_1m;
+
+    for(int i = 0; i <= 9999; i++)
+    {
+        increasing_10k.push_back(i);
+    }
+
+    for(int i = 0; i <= 99999; i++)
+    {
+        increasing_100k.push_back(i);
+    }
+
+    for(int i = 0; i <= 999999; i++)
+    {
+        increasing_1m.push_back(i);
+    }
+
+    vector<int> heap_10k = increasing_10k;
+    vector<int> insert_10k = increasing_10k;
+    vector<int> merge_10k = increasing_10k;
+    vector<int> quick_10k = increasing_10k;
+    
+    vector<int> heap_100k = increasing_100k;
+    vector<int> insert_100k = increasing_100k;
+    vector<int> merge_100k = increasing_100k;
+    vector<int> quick_100k = increasing_100k;
+
+    vector<int> heap_1m = increasing_1m;
+    vector<int> insert_1m = increasing_1m;
+    vector<int> merge_1m = increasing_1m;
+    vector<int> quick_1m = increasing_1m;
+
+    clock_t start;
+    clock_t stop;    
+
+    // 10k sorts
+    start = clock();
+    heapsort<int>(heap_10k);
+    stop = clock();
+    cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    mergeSort<int>(merge_10k);
+    stop = clock();
+    cout << "runtime merge 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    quicksort<int>(quick_10k);
+    stop = clock();
+    cout << "runtime quick 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    insertionSort<int>(insert_10k);
+    stop = clock();
+    cout << "runtime insert 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+    // 100k sorts
+    start = clock();
+    heapsort<int>(heap_100k);
+    stop = clock();
+    cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    mergeSort<int>(merge_100k);
+    stop = clock();
+    cout << "runtime merge 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    quicksort<int>(quick_100k);
+    stop = clock();
+    cout << "runtime quick 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    insertionSort<int>(insert_100k);
+    stop = clock();
+    cout << "runtime insert 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+    // 1m sorts
+    start = clock();
+    heapsort<int>(heap_1m);
+    stop = clock();
+    cout << "runtime heap 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    mergeSort<int>(merge_1m);
+    stop = clock();
+    cout << "runtime merge 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    quicksort<int>(quick_1m);
+    stop = clock();
+    cout << "runtime quick 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    insertionSort<int>(insert_1m);
+    stop = clock();
+    cout << "runtime insert 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
 }
 
 void decreasing_test()
 {
+    // Decreasing integer vectors
+    vector<int> decreasing_10k;
+    vector<int> decreasing_100k;
+    vector<int> decreasing_1m;
+
+    for(int i = 9999; i >= 0; i--)
+    {
+        decreasing_10k.push_back(i);
+    }
+
+    for(int i = 99999; i >= 0; i--)
+    {
+        decreasing_100k.push_back(i);
+    }
+
+    for(int i = 999999; i >= 0; i--)
+    {
+        decreasing_1m.push_back(i);
+    }
+
+    vector<int> heap_10k = decreasing_10k;
+    vector<int> insert_10k = decreasing_10k;
+    vector<int> merge_10k = decreasing_10k;
+    vector<int> quick_10k = decreasing_10k;
+    
+    vector<int> heap_100k = decreasing_100k;
+    vector<int> insert_100k = decreasing_100k;
+    vector<int> merge_100k = decreasing_100k;
+    vector<int> quick_100k = decreasing_100k;
+
+    vector<int> heap_1m = decreasing_1m;
+    vector<int> insert_1m = decreasing_1m;
+    vector<int> merge_1m = decreasing_1m;
+    vector<int> quick_1m = decreasing_1m;
+
+    clock_t start;
+    clock_t stop;    
+
+    // 10k sorts
+    start = clock();
+    heapsort<int>(heap_10k);
+    stop = clock();
+    cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    mergeSort<int>(merge_10k);
+    stop = clock();
+    cout << "runtime merge 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    quicksort<int>(quick_10k);
+    stop = clock();
+    cout << "runtime quick 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    insertionSort<int>(insert_10k);
+    stop = clock();
+    cout << "runtime insert 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+    // 100k sorts
+    start = clock();
+    heapsort<int>(heap_100k);
+    stop = clock();
+    cout << "runtime heap 10k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    mergeSort<int>(merge_100k);
+    stop = clock();
+    cout << "runtime merge 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    quicksort<int>(quick_100k);
+    stop = clock();
+    cout << "runtime quick 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    insertionSort<int>(insert_100k);
+    stop = clock();
+    cout << "runtime insert 100k: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+    // 1m sorts
+    start = clock();
+    heapsort<int>(heap_1m);
+    stop = clock();
+    cout << "runtime heap 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    mergeSort<int>(merge_1m);
+    stop = clock();
+    cout << "runtime merge 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    quicksort<int>(quick_1m);
+    stop = clock();
+    cout << "runtime quick 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
+
+    start = clock();
+    insertionSort<int>(insert_1m);
+    stop = clock();
+    cout << "runtime insert 1m: " << double(stop-start)/double(CLOCKS_PER_SEC) << "\n";
 
 }
 
