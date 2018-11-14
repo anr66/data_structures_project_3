@@ -1,12 +1,6 @@
 #ifndef quicksort_h
 #define quicksort_h
 
-template <typename Comparable>
-void quicksort( vector<Comparable> & a )
-{
-    quicksort(a, 0, a.size() - 1);
-}
-
 /**
  * Return median of left, center, and right.
  * Order these and hide the pivot.
@@ -38,30 +32,40 @@ const Comparable & median3( vector<Comparable> & a, int left, int right)
 template <typename Comparable>
 void quicksort( vector<Comparable> & a, int left, int right )
 {
-    if( left + 10 <= right )
+    if (left + 1 >= right)
     {
-        const Comparable & pivot = median3( a, left, right );
+        std::swap(a[left], a[right]);
+        return;
+    }
+
+    const Comparable & pivot = median3( a, left, right );
+    
+    //begin partitioning
+    int i = left, j = right - 1;
+    for( ; ; )
+    {
+        while( a[ ++i ] < pivot ) {}
+        while( pivot < a[ --j ] ) {}
+        if( i < j )
+            std::swap( a[ i ], a[ j ] );
+        else
+            break;
         
-        //begin partitioning
-        int i = left, j = right - 1;
-        for( ; ; )
-        {
-            while( a[ ++i ] < pivot ) {}
-            while( pivot < a[ --j ] ) {}
-            if( i < j )
-                std::swap( a[ i ], a[ j ] );
-            else
-                break;
-            
-        }
-        
-        std::swap( a[i], a[right - 1]); //restore pivot
-        quicksort(a,left,i-1);
-        quicksort(a,i+1,right);
     }
     
-    else //do an insertion sort on the subarray
-        insertionSort(a, left, right);
+    std::swap( a[i], a[right - 1]); //restore pivot
+    quicksort(a,left,i-1);
+    quicksort(a,i+1,right);
 }
+
+template <typename Comparable>
+void quicksort( vector<Comparable> & a )
+{
+    quicksort(a, 0, a.size() - 1);
+}
+
+
+
+
 
 #endif /* quicksort_h */
